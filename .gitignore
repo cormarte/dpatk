@@ -1,1 +1,6 @@
+docs/latex/
+docs/Doxyfile
+src/build/
+src/dist/
+src/dpatk.egg-info/
 src/dpatk/__pycache__
