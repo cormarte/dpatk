@@ -1,5 +1,12 @@
 var namespacedpatk =
 [
+    [ "examples", "namespacedpatk_1_1examples.html", [
+      [ "main", "namespacedpatk_1_1examples.html#a30072e7687ebbdba56017ef9ad365fa4", null ],
+      [ "read_write_volume", "namespacedpatk_1_1examples.html#a2db63e4b5ed540f93c0894b65d99b97b", null ],
+      [ "register_volume", "namespacedpatk_1_1examples.html#a1224591e784e6ddfa1841f75c910eaeb", null ],
+      [ "run_all_examples", "namespacedpatk_1_1examples.html#a00c925e856d421bf0a7261086a458a4d", null ],
+      [ "run_decomposition_analyses", "namespacedpatk_1_1examples.html#af3828f5fa9742de1bf9a6614dffe4907", null ]
+    ] ],
     [ "io", "namespacedpatk_1_1io.html", "namespacedpatk_1_1io" ],
     [ "models", "namespacedpatk_1_1models.html", "namespacedpatk_1_1models" ],
     [ "registration", "namespacedpatk_1_1registration.html", [
