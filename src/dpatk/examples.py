@@ -12,7 +12,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # Contact: corentin.martens@ulb.be
 
@@ -41,7 +41,7 @@ def read_write_volume(input_directory, output_file):
     """
 
     # First, let us load the dynamic volume from the directory as a SimpletITK::Image.
-    # An array containing the mid-frame times wrt to the tracer injection is also returned.
+    # An array containing the mid-frame times wrt the tracer injection is also returned.
     dynamic_volume, time_array = DICOMDynamicVolumeReader.read(input_directory)
 
     # Then, the sorted dynamic volume is stored as a single MHA file to ease further processing.

@@ -12,7 +12,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # Contact: corentin.martens@ulb.be
 
@@ -91,6 +91,8 @@ def register_dynamic_volume(dynamic_volume, block_index_ranges, reference_block_
     The frames are grouped into blocks and blockwise averaged to increase their SNR. The blocks are then registered to a
     user-specified block of reference. Individual frame transforms are finally linearly interpolated from the previously
     estimated block transforms.
+
+    See \cite martens_2021 for more information.
 
     Parameters
     ----------

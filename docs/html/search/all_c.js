@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['versor_5frigid_5fregister_5fvolume_44',['versor_rigid_register_volume',['../namespacedpatk_1_1registration.html#a720bfb70e457493d61f664b8bd54367d',1,'dpatk::registration']]],
-  ['versor_5frigid_5ftransform_5fvolume_45',['versor_rigid_transform_volume',['../namespacedpatk_1_1registration.html#a268603ba33bf1211c7ec98f4b5272c77',1,'dpatk::registration']]]
+  ['transform_45',['transform',['../classdpatk_1_1models_1_1_model_base.html#aaef0b84a2c72ce74f0079a0c148c3fef',1,'dpatk.models.ModelBase.transform()'],['../classdpatk_1_1models_1_1_decomposition_model_base.html#a0cdc361d0afda543e024db27b8586ada',1,'dpatk.models.DecompositionModelBase.transform()']]]
 ];

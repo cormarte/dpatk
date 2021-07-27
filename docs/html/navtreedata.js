@@ -25,6 +25,18 @@
 var NAVTREE =
 [
   [ "DPATK", "index.html", [
+    [ "Documentation", "index.html", [
+      [ "Introduction", "index.html#autotoc_md0", null ],
+      [ "License & Citation", "index.html#autotoc_md1", null ],
+      [ "Installation", "index.html#autotoc_md2", [
+        [ "Getting the Sources", "index.html#autotoc_md3", null ],
+        [ "Install DPATK from PyPI", "index.html#autotoc_md4", null ]
+      ] ],
+      [ "Getting Started", "index.html#autotoc_md5", [
+        [ "Reading a Dynamic PET Volume from DICOM files", "index.html#autotoc_md6", null ]
+      ] ]
+    ] ],
+    [ "Bibliography", "citelist.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

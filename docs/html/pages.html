@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DPATK: Documentation</title>
+<title>DPATK: Related Pages</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -88,41 +88,16 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </iframe>
 </div>
 
-<div class="PageDoc"><div class="header">
+<div class="header">
   <div class="headertitle">
-<div class="title">Documentation </div>  </div>
+<div class="title">Related Pages</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_main"></a> </p>
-<h1><a class="anchor" id="autotoc_md0"></a>
-Introduction</h1>
-<p>Welcome to the Dynamic PET Analysis ToolKit's documentation page!</p>
-<p>DPATK bundles convenient routines for the analysis of dynamic PET data using comparmental pharmacokinetic models and decomposition techniques. The toolkit is based on the popular <a href="https://numpy.org/"><code>numpy</code></a>, <a href="https://www.scipy.org/"><code>scipy</code></a>, <a href="https://scikit-learn.org/"><code>scikit-learn</code></a>, and <a href="https://simpleitk.org/"><code>SimpleITK</code></a> packages.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-License &amp; Citation</h1>
-<p>DPATK is freely available under GPLv3 license, which can be found <a href="https://github.com/cormarte/dpatk/blob/main/src/COPYING.txt">here</a>. If you use DPATK for your publications, please cite the following paper, available <a href="https://doi.org/10.3390/cancers13102342">here</a>:</p>
-<p>C. Martens, O. Debeir, C. Decaestecker, T. Metens, L. Lebrun, G. Leurquin-Sterk, N. Trotta, S. Goldman and G. Van Simaeys. Voxelwise Principal Component Analysis of Dynamic [S-Methyl-11C]Methionine PET Data in Glioma Patients. Cancers, 13(10):2342, May 2021.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
-Installation</h1>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Getting the Sources</h2>
-<p>DPATK's source files can be retrieved from the <a href="https://github.com/cormarte/dpatk.git">github repo</a> using: </p><pre class="fragment">git clone https://github.com/cormarte/dpatk.git
-</pre> <h2><a class="anchor" id="autotoc_md4"></a>
-Install DPATK from PyPI</h2>
-<p>Alternately, DPATK can be installed directly from PyPI using: </p><pre class="fragment">pip install dpatk
-</pre> <h1><a class="anchor" id="autotoc_md5"></a>
-Getting Started</h1>
-<h2><a class="anchor" id="autotoc_md6"></a>
-Reading a Dynamic PET Volume from DICOM files</h2>
-<p>Most PET scanner vendors will not allow the reconstruction of overlapping frames within a single DICOM series. However, overlapping frames lead to a good comprise between temporal resolution and count statistics and can benefit kinetic parameter estimation <a class="el" href="citelist.html#CITEREF_martens_2021">[1]</a>. To deal with this issue, DPATK bundles the convenient class <a class="el" href="classdpatk_1_1io_1_1_d_i_c_o_m_dynamic_volume_reader.html">DICOMDynamicVolumeReader</a> for reading and sorting dynamic PET DICOM files possibly belongig to different series but sharing the same Series Date (0008, 0021) and Series Time (0008, 0031) attributes. To load a dynamic PET volume from a root directory containing all the DICOM files, just type: </p><pre class="fragment">from dpatk.io import DICOMDynamicVolumeReader
-
-root_directory = "my/root/directory"
-dynamic_volume, time_array = DICOMDynamicVolumeReader.read(root_directory)
-</pre><p> A 1D <code>numpy::ndarray</code> containing the mid-frame times with regard to the tracer injection is also returned along with the dynamic PET volume as a <code>SimpleITK::Image</code>. To ease further processing, the sorted dynamic volume can then be stored as a single MHA file using the <a class="el" href="classdpatk_1_1io_1_1_simple_volume_writer.html">SimpleVolumeWriter</a>: </p><pre class="fragment">from dpatk.io import SimpleVolumeWriter
-
-output_file = "my/output/file.mha"
-SimpleVolumeWriter.write(dynamic_volume, output_file)
-</pre> </div></div><!-- PageDoc -->
+<div class="textblock">Here is a list of all related documentation pages:</div><div class="directory">
+<table class="directory">
+<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="citelist.html" target="_self">Bibliography</a></td><td class="desc"></td></tr>
+</table>
+</div><!-- directory -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['write_46',['write',['../classdpatk_1_1io_1_1_writer_base.html#ad46acc8224b2b51b7126f3ff808453ec',1,'dpatk.io.WriterBase.write()'],['../classdpatk_1_1io_1_1_model_writer.html#a818b6db67e2414cd0e01faa335ae51c2',1,'dpatk.io.ModelWriter.write()'],['../classdpatk_1_1io_1_1_simple_volume_writer.html#a6503f40e22220ab9a2460b56b698c141',1,'dpatk.io.SimpleVolumeWriter.write()']]],
-  ['writerbase_47',['WriterBase',['../classdpatk_1_1io_1_1_writer_base.html',1,'dpatk::io']]]
+  ['versor_5frigid_5fregister_5fvolume_46',['versor_rigid_register_volume',['../namespacedpatk_1_1registration.html#a720bfb70e457493d61f664b8bd54367d',1,'dpatk::registration']]],
+  ['versor_5frigid_5ftransform_5fvolume_47',['versor_rigid_transform_volume',['../namespacedpatk_1_1registration.html#a268603ba33bf1211c7ec98f4b5272c77',1,'dpatk::registration']]]
 ];

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['transform_43',['transform',['../classdpatk_1_1models_1_1_model_base.html#aaef0b84a2c72ce74f0079a0c148c3fef',1,'dpatk.models.ModelBase.transform()'],['../classdpatk_1_1models_1_1_decomposition_model_base.html#a0cdc361d0afda543e024db27b8586ada',1,'dpatk.models.DecompositionModelBase.transform()']]]
+  ['shift_5fcurve_42',['shift_curve',['../namespacedpatk_1_1registration.html#a4638033998b83d12ddc1f99a11b22bfa',1,'dpatk::registration']]],
+  ['simplevolumereader_43',['SimpleVolumeReader',['../classdpatk_1_1io_1_1_simple_volume_reader.html',1,'dpatk::io']]],
+  ['simplevolumewriter_44',['SimpleVolumeWriter',['../classdpatk_1_1io_1_1_simple_volume_writer.html',1,'dpatk::io']]]
 ];
