@@ -63,7 +63,7 @@ class ReaderBase(ABC):
 class DICOMDynamicVolumeReader(ReaderBase):
 
     """
-    A reader for 4D dynamic PET volumes sorted as DICOM files possibly belonging to different series for overlapping
+    A reader for 4D dynamic PET volumes sorted as DICOM files possibly belonging to different series with overlapping
     frames.
     """
 
