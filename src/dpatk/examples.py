@@ -104,7 +104,7 @@ def run_decomposition_analyses(dynamic_volume_file, mask_file):
     mask = SimpleVolumeReader.read(mask_file)
 
     # Then, extract all curves within the mask from the dynamic volume as a 2D numpy::ndarray.
-    # A division of the resulting array by 1000 is performed to avoid overflow for data expressed in BQML.
+    # A division of the resulting array by 1000 is performed to avoid overflow for data expressed in Bq/ml".
     # The neighborhood argument is set to 0, which means that no average smoothing of the curves is performed.
     data = extract_curves_from_volume(dynamic_volume, mask, neighborhood=0)/1000.0
 
