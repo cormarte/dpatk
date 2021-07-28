@@ -30,10 +30,13 @@ var NAVTREE =
       [ "License & Citation", "index.html#autotoc_md1", null ],
       [ "Installation", "index.html#autotoc_md2", [
         [ "Getting the Sources", "index.html#autotoc_md3", null ],
-        [ "Install DPATK from PyPI", "index.html#autotoc_md4", null ]
+        [ "Install from PyPI", "index.html#autotoc_md4", null ]
       ] ],
       [ "Getting Started", "index.html#autotoc_md5", [
-        [ "Reading a Dynamic PET Volume from DICOM files", "index.html#autotoc_md6", null ]
+        [ "Reading a Dynamic PET Volume from DICOM Files", "index.html#autotoc_md6", null ],
+        [ "Writing a Dynamic PET Volume as a Single MHA File", "index.html#autotoc_md7", null ],
+        [ "Registering a Dynamic Volume", "index.html#autotoc_md8", null ],
+        [ "Running a PCA Analysis", "index.html#autotoc_md9", null ]
       ] ]
     ] ],
     [ "Bibliography", "citelist.html", null ],

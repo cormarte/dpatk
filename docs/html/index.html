@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <h1><a class="anchor" id="autotoc_md0"></a>
 Introduction</h1>
 <p>Welcome to the Dynamic PET Analysis ToolKit's documentation page!</p>
-<p>DPATK bundles convenient routines for the analysis of dynamic PET data using comparmental pharmacokinetic models and decomposition techniques. The toolkit is based on the popular <a href="https://numpy.org/"><code>numpy</code></a>, <a href="https://www.scipy.org/"><code>scipy</code></a>, <a href="https://scikit-learn.org/"><code>scikit-learn</code></a>, and <a href="https://simpleitk.org/"><code>SimpleITK</code></a> packages.</p>
+<p>DPATK bundles convenient routines for the analysis of dynamic PET data using comparmental pharmacokinetic models and decomposition techniques. The toolkit is based on the popular <a href="https://numpy.org/"><code>numpy</code></a>, <a href="https://www.scipy.org/"><code>scipy</code></a>, <a href="https://scikit-learn.org/"><code>scikit-learn</code></a>, and <a href="https://simpleitk.org/"><code>SimpleITK</code></a> libraries.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 License &amp; Citation</h1>
 <p>DPATK is freely available under GPLv3 license, which can be found <a href="https://github.com/cormarte/dpatk/blob/main/src/COPYING.txt">here</a>. If you use DPATK for your publications, please cite the following paper, available <a href="https://doi.org/10.3390/cancers13102342">here</a>:</p>
@@ -108,21 +108,55 @@ Installation</h1>
 Getting the Sources</h2>
 <p>DPATK's source files can be retrieved from the <a href="https://github.com/cormarte/dpatk.git">github repo</a> using: </p><pre class="fragment">git clone https://github.com/cormarte/dpatk.git
 </pre> <h2><a class="anchor" id="autotoc_md4"></a>
-Install DPATK from PyPI</h2>
+Install from PyPI</h2>
 <p>Alternately, DPATK can be installed directly from PyPI using: </p><pre class="fragment">pip install dpatk
 </pre> <h1><a class="anchor" id="autotoc_md5"></a>
 Getting Started</h1>
+<p>In this section, the main features of DPATK are presented by means of concrete examples. The entire code of these examples is avaible in the <a class="el" href="namespacedpatk_1_1examples.html">examples</a> module.</p>
 <h2><a class="anchor" id="autotoc_md6"></a>
-Reading a Dynamic PET Volume from DICOM files</h2>
-<p>Most PET scanner vendors will not allow the reconstruction of overlapping frames within a single DICOM series. However, overlapping frames lead to a good comprise between temporal resolution and count statistics and can benefit kinetic parameter estimation <a class="el" href="citelist.html#CITEREF_martens_2021">[1]</a>. To deal with this issue, DPATK bundles the convenient class <a class="el" href="classdpatk_1_1io_1_1_d_i_c_o_m_dynamic_volume_reader.html">DICOMDynamicVolumeReader</a> for reading and sorting dynamic PET DICOM files possibly belongig to different series but sharing the same Series Date (0008, 0021) and Series Time (0008, 0031) attributes. To load a dynamic PET volume from a root directory containing all the DICOM files, just type: </p><pre class="fragment">from dpatk.io import DICOMDynamicVolumeReader
+Reading a Dynamic PET Volume from DICOM Files</h2>
+<p>Most PET scanner vendors will not allow the reconstruction of overlapping frames within a single DICOM series. However, overlapping frames are often a good comprise between temporal resolution and count statistics and can benefit kinetic parameter estimation <a class="el" href="citelist.html#CITEREF_martens_2021">[1]</a>. To deal with this issue, DPATK embeds the convenient class <a class="el" href="classdpatk_1_1io_1_1_d_i_c_o_m_dynamic_volume_reader.html">DICOMDynamicVolumeReader</a> for reading and sorting dynamic PET DICOM files possibly belongig to different series but sharing the same Series Date (0008, 0021) and Series Time (0008, 0031) attributes.</p>
+<p>To load a dynamic PET volume from a root directory containing all the DICOM files (possibly in different subdirectories), just type the following instructions: </p><pre class="fragment">from dpatk.io import DICOMDynamicVolumeReader
 
 root_directory = "my/root/directory"
 dynamic_volume, time_array = DICOMDynamicVolumeReader.read(root_directory)
-</pre><p> A 1D <code>numpy::ndarray</code> containing the mid-frame times with regard to the tracer injection is also returned along with the dynamic PET volume as a <code>SimpleITK::Image</code>. To ease further processing, the sorted dynamic volume can then be stored as a single MHA file using the <a class="el" href="classdpatk_1_1io_1_1_simple_volume_writer.html">SimpleVolumeWriter</a>: </p><pre class="fragment">from dpatk.io import SimpleVolumeWriter
+</pre><p> A 1D <code>numpy::ndarray</code> containing the mid-frame times with regard to the tracer injection time is also returned along with the dynamic PET volume as a <a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1Image.html"><code>SimpleITK::Image</code></a>.</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Writing a Dynamic PET Volume as a Single MHA File</h2>
+<p>To ease further processing, the sorted dynamic volume can then be stored as a single MHA file using the <a class="el" href="classdpatk_1_1io_1_1_simple_volume_writer.html">SimpleVolumeWriter</a>: </p><pre class="fragment">from dpatk.io import SimpleVolumeWriter
 
 output_file = "my/output/file.mha"
 SimpleVolumeWriter.write(dynamic_volume, output_file)
-</pre> </div></div><!-- PageDoc -->
+</pre> <h2><a class="anchor" id="autotoc_md8"></a>
+Registering a Dynamic Volume</h2>
+<p>For long dynamic acquisitions, patient motion is likely to occur which can substantially impact the extracted time-activity curves at the voxel level. Therefore, dynamic frame registation is required prior to the analysis. However, in case of short frames, framewise registration may become challenging due to their typically low SNR combined with the rapidly varying contrast in the first minutes after the tracer injection. To address this problem, a block-based approach has been proposed in <a class="el" href="citelist.html#CITEREF_martens_2021">[1]</a>, which consists in gathering frames into blocks for which registration is made easier. Individual frame transforms are then linearly inteprolated from the block transforms. To this end, the <a class="el" href="namespacedpatk_1_1registration.html#a25edd247a2383f96d4198a33dd3bc030">register_dynamic_volume</a> routine is available in DPATK.</p>
+<p>The frame indices of each block must first be specified as a list of ranges: </p><pre class="fragment">block_indices = [range(i, i+30) for i in range(36, 900, 30)]
+</pre><p> <b>Note:</b> The block indices hereaove were determined for 906 overlapping frames of 20" spaced by 2" as in <a class="el" href="citelist.html#CITEREF_martens_2021">[1]</a> and must be adjusted according to your specific framing.</p>
+<p>The registration can then be launched using: </p><pre class="fragment">registered_dynamic_volume, original_blocks, registered_blocks, parameters = register_dynamic_volume(dynamic_volume, block_indices, delete_original_volume=True)
+</pre><p> The 4D registered volume is returned as a <a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1Image.html"><code>SimpleITK::Image</code></a> along with the original and registered blocks (4D <a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1Image.html"><code>SimpleITK::Image</code></a>) for quality check and the corresponding registration parameters (2D <code>numpy::ndarray</code>).</p>
+<p><b>Note:</b> In this example, the <code>delete_original_volume</code> flag is set to <code>True</code> to save RAM usage. This means that <code>dynamic_volume</code> must no longer be used after this call.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Running a PCA Analysis</h2>
+<p>Principal component analysis (PCA) and other decomposition techniques may be used to extract relevant features from dynamic PET time-activity curves with no need for arterial input function <a class="el" href="citelist.html#CITEREF_martens_2021">[1]</a>. The <a class="el" href="namespacedpatk_1_1models.html">models</a> module gathers a set of decomposition models for dynamic PET analysis. For example, the <a class="el" href="classdpatk_1_1models_1_1_p_c_a_model.html">PCAModel</a> can be used as follows.</p>
+<p>First, a binary 3D mask must be loaded as a <a href="https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1Image.html"><code>SimpleITK::Image</code></a>: </p><pre class="fragment">from dpatk.io import SimpleVolumeReader
+
+mask_file =  "my/mask/file.mha"
+mask = SimpleVolumeReader.read(mask_file)
+</pre><p> Then, all the time-activity curves must be extracted from the binary mask as a 2D <code>numpy::ndarray</code> using the <a class="el" href="namespacedpatk_1_1utils.html#a46f514a07212b934f235bc1a92bb2963">extract_curves_from_volume</a> routine: </p><pre class="fragment">data = extract_curves_from_volume(dynamic_volume, mask, neighborhood=0)/1000.0
+</pre><p> <b>Notes:</b></p><ul>
+<li>A division of the resulting array by 1000 is performed to avoid overflow in the model for data expressed in Bq/ml.</li>
+<li>The <code>neighborhood</code> argument is set to 0 in this example, which means that no average smoothing of the curves is performed.</li>
+</ul>
+<p>The PCA model is then built using: </p><pre class="fragment">model = Model(nb_of_components=6)
+model.fit(data)
+</pre><p> and the model parameter (component) values can be computed using: </p><pre class="fragment">parameters = model.transform(data)
+</pre><p> A 4D volume is then rebuilt from the parameter (component) values and the binary mask using the <a class="el" href="namespacedpatk_1_1utils.html#a125163afd5b7dc32dbbf648e3f5d1c16">make_volume_from_curves</a> routine: </p><pre class="fragment">components_volume = make_volume_from_curves(parameters, mask)
+</pre><p> The model can finally be saved for further use using the <a class="el" href="classdpatk_1_1io_1_1_model_writer.html">ModelWriter</a>: </p><pre class="fragment">from dpatk.io import ModelWriter
+
+model_file = "my/model/file.oby"
+ModelWriter.write(model, model_file)
+</pre><p> <b>Note:</b> For inter-patient comparison of the generated parametric maps, the model should rather be fitted on the whole time-activity curves set extracted from a typical patient dataset after inter-patient normalization (e.g. using SUV conversion) and temporal registration (e.g. using the <a class="el" href="namespacedpatk_1_1registration.html#af80a723c6798d01663d7af74a74a1923">register_curve</a> routine applied to patient's image-derived input functions). For more information, refer to <a class="el" href="citelist.html#CITEREF_martens_2021">[1]</a>. </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

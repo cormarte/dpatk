@@ -1,0 +1,50 @@
+The DPATK toolkit is based on several libraries that are compatibly licensed. We list these here.
+
+Name: matplotlib
+License: PSFL
+Copyright (c) 2012- Matplotlib Development Team; All Rights Reserved
+  For details, see: - https://github.com/matplotlib/matplotlib/blob/master/LICENSE/LICENSE
+                    - https://matplotlib.org/stable/users/license.html
+
+Name: numpy
+License: BSD 3-clause
+Copyright (c) 2005-2021, NumPy Developers. All rights reserved.
+  For details, see: - https://github.com/numpy/numpy/blob/main/LICENSE.txt
+		    - https://numpy.org/doc/stable/license.html
+
+Name: pydicom
+License: MIT
+Copyright (c) 2008-2020 Darcy Mason and pydicom contributors
+  For details, see: - https://github.com/pydicom/pydicom/blob/master/LICENSE
+                    - https://pydicom.github.io/pydicom/stable/old/getting_started.html
+
+Name: The Python Standard Library
+License: MIT
+Copyright © 2001-2021 Python Software Foundation; All Rights Reserved
+  For details, see: - https://docs.python.org/3/license.html
+
+Name: scikit-learn
+License: BSD 3-clause
+Copyright: (c) 2007-2021 The scikit-learn developers. All rights reserved.
+  For details, see: - https://github.com/scikit-learn/scikit-learn/blob/main/COPYING
+
+Name: SciPy
+License: BSD 3-clause
+Copyright (c) 2007-2021 The scikit-learn developers. All rights reserved.
+  For details, see: - https://github.com/scipy/scipy/blob/master/LICENSE.txt
+		    - https://www.scipy.org/scipylib/license.html
+
+Name: SimpleITK
+License: Apache 2.0
+Copyright NumFOCUS
+  For details, see: - https://github.com/SimpleITK/SimpleITK/blob/master/LICENSE
+		    - https://simpleitk.readthedocs.io/en/master/license.html
+
+Name: sortedcontainers
+License: Apache 2.0
+Copyright 2014-2019 Grant Jenks
+  For details, see: - https://github.com/grantjenks/python-sortedcontainers/blob/master/LICENSE
+		    - http://www.grantjenks.com/docs/sortedcontainers/
+
+
+

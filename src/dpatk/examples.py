@@ -75,7 +75,7 @@ def register_volume(input_file, output_file):
     # original and registered blocks (4D SimpletITK::Image) for quality check and the corresponding registration
     # parameters (2D numpy::ndarray).
     # In this example, the delete_original_volume flag is set to true to save RAM usage. This means that dynamic_volume
-    # should no longer be used after this call.
+    # must no longer be used after this call.
     registered_dynamic_volume, original_blocks, registered_blocks, parameters = \
         register_dynamic_volume(dynamic_volume, block_indices, delete_original_volume=True)
 
