@@ -20,6 +20,7 @@ import numpy as np
 import pickle
 import pydicom
 import SimpleITK as sitk
+import time
 import warnings
 from abc import ABC, abstractmethod
 from datetime import datetime
@@ -342,9 +343,8 @@ class WriterBase(ABC):
     def __init__(self):
         super().__init__()
 
-    @staticmethod
     @abstractmethod
-    def write(data: object, path: str):
+    def write(self, data: object, path: str):
 
         """Writes the data.
 
@@ -359,6 +359,119 @@ class WriterBase(ABC):
         pass
 
 
+class DICOMVolumeWriter(WriterBase):
+
+    """
+    A writer for medical image volumes stored as DICOM.
+    """
+
+    def __init__(self, ref_file):
+        super().__init__()
+        self.ref_file = ref_file
+
+    def write(self, data: Image, path: str):
+
+        """Writes an image volume.
+
+        Parameters
+        ----------
+        data : Image
+            An image volume.
+        path : str
+            The DICOM directory.
+
+        """
+
+        # Reference file reading
+        reader = sitk.ImageFileReader()
+        reader.SetFileName(self.ref_file)
+        reader.ReadImageInformation()
+
+        # Image information
+        direction = data.GetDirection()
+        spacing = data.GetSpacing()
+        number_of_slices = data.GetDepth()
+        number_of_components = data.GetNumberOfComponentsPerPixel()
+
+        # Image rescaling
+        array = sitk.GetArrayViewFromImage(data)
+        input_min, input_max = np.min(array), np.max(array)
+        output_type = np.int16
+        output_min, output_max = np.iinfo(output_type).min, np.iinfo(output_type).max
+        slope = (input_max-input_min)/(output_max-output_min)
+        intercept = -output_min*slope+input_min
+
+        # Tags
+        tags_to_copy = ['0008|0020',  # Study Date
+                        '0008|0030',  # Study Time
+                        '0008|0050',  # Accession Number
+                        '0008|0060',  # Modality
+                        '0010|0010',  # Patient Name
+                        '0010|0020',  # Patient ID
+                        '0010|0030',  # Patient Birth Date
+                        '0020|000d',  # Study Instance UID
+                        '0020|0010'   # Study ID
+                        ]
+
+        modification_time = time.strftime('%H%M%S')
+        modification_date = time.strftime('%Y%m%d')
+
+        series_tag_values = [(t, reader.GetMetaData(t)) for t in tags_to_copy if reader.HasMetaDataKey(t)] + \
+                            [('0008|0008', 'DERIVED\\SECONDARY'),                                                       # Image Type
+                             ('0008|0021', modification_date),                                                          # Series Date
+                             ('0008|0031', modification_time),                                                          # Series Time
+                             ('0008|103e', f'{reader.GetMetaData("0008|103e")} - DPATK Processed'),                     # Series Description
+                             ('0020|000e', f'1.2.826.0.1.3680043.2.1125.{modification_date}.1{modification_time}'),     # Series Instance UID
+                             ('0020|0037', '\\'.join(map(str, (direction[0], direction[3], direction[6], direction[1],
+                                                               direction[4], direction[7])))),                          # Image Orientation (Patient)
+                             ('0028|0030', '\\'.join(map(str, (spacing[0:2])))),                                        # Pixel Spacing
+                             ('0028|0100', '16'),                                                                       # Bits Allocated
+                             ('0028|0101', '16'),                                                                       # Bits Stored
+                             ('0028|0102', '15'),                                                                       # High Bit
+                             ('0028|0103', '1'),                                                                        # Pixel Representation
+                             ('0028|1052', str(intercept)),                                                             # Rescale Intercept
+                             ('0028|1053', str(slope))                                                                  # Rescale Slope
+                             ]
+
+        # Use dynamic PET format for multi-component images
+        if number_of_components > 1:
+            series_tag_values += [('0054|0081', str(number_of_slices)),                                                 # Number of Slices
+                                  ('0054|1000', 'DYNAMIC\IMAGE'),                                                       # Series Type
+                                  ('0054|0101', str(number_of_components))]                                             # Number of Time Slices
+
+        # For individual image component extraction
+        extract_filter = sitk.VectorIndexSelectionCastImageFilter()
+
+        writer = sitk.ImageFileWriter()
+        writer.KeepOriginalImageUIDOn()
+
+        for i in range(number_of_components):
+
+            if number_of_components > 1:
+                extract_filter.SetIndex(i)
+                frame = extract_filter.Execute(data)
+            else:
+                frame = data
+
+            for j in range(number_of_slices):
+
+                image_slice = frame[:, :, j]
+
+                for tag, value in series_tag_values:
+                    image_slice.SetMetaData(tag, value)
+
+                image_slice.SetMetaData('0008|0012', time.strftime("%Y%m%d"))                                           # Instance Creation Date
+                image_slice.SetMetaData('0008|0013', time.strftime("%H%M%S"))                                           # Instance Creation Time
+                image_slice.SetMetaData('0020|0013', str(i*number_of_slices+j))                                         # Instance Number
+                image_slice.SetMetaData('0020|0032', '\\'.join(map(str, data.TransformIndexToPhysicalPoint((0, 0, j)))))# Image Position (Patient)
+
+                if number_of_components > 1:
+                    image_slice.SetMetaData('0054|1300', str(i))                                                        # Frame ref time
+
+                writer.SetFileName(join(path, str(i*number_of_slices+j) + '.dcm'))
+                writer.Execute(image_slice)
+
+
 class ModelWriter(WriterBase):
 
     """
@@ -368,8 +481,7 @@ class ModelWriter(WriterBase):
     def __init__(self):
         super().__init__()
 
-    @staticmethod
-    def write(data: ModelBase, path: str):
+    def write(self, data: ModelBase, path: str):
 
         """Writes a model.
 
@@ -398,8 +510,7 @@ class SimpleVolumeWriter(WriterBase):
     def __init__(self):
         super().__init__()
 
-    @staticmethod
-    def write(data: Image, path: str):
+    def write(self, data: Image, path: str):
 
         """Writes an image volume.
 
