@@ -8,7 +8,7 @@ with open('requirements.txt', 'r') as f:
 
 setup(
     name='dpatk',
-    version='0.0.3',
+    version='0.0.4',
     description='The Dynamic PET Analysis Toolkit',
     long_description=long_description,
 	long_description_content_type='text/markdown',

@@ -494,11 +494,7 @@ class ModelWriter(WriterBase):
 
         """
 
-        assert isfile(path)
-
-        model = pickle.load(open(path, 'rb'))
-
-        return model
+        pickle.dump(data, open(path, 'wb'))
 
 
 class SimpleVolumeWriter(WriterBase):
